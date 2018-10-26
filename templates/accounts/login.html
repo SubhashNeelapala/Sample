@@ -1,0 +1,24 @@
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<body class="row text">
+    <div class="row col-md-5">
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Login</button>
+        <a href="{% url 'home' %}">Do you want to register..?</a>
+    </form>
+    
+</div>
+</body>
+<style type="text/css">
+    .text{
+        background: #6b3558
+    }
+    .row{
+        padding: 25px
+    }
+    /* .username{
+        text-align: right;
+        padding: 20%;
+    } */
+</style>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

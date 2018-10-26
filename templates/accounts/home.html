@@ -1,0 +1,30 @@
+<h1>Registration..!</h1>
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- <div class="col-md-6" text-allign:'right'>
+    <a href="{% url 'user_login' % }">Back To Login Page</a>
+</div> -->
+<div class="col-md-6">
+<form method="POST" class="post-form">{% csrf_token %}
+    <!-- {{form.password}}
+    {{form.date_joined}} -->
+    <div class="row">
+        <div class="col-md-6">
+                Username : {{ form.username }}
+                First Name : {{ form.first_name }}
+                Last Name : {{ form.last_name }}
+                Email : {{ form.email }}
+                Age : {{ form.age }}
+                Mobile Number : {{form.mobile_number}}
+                gender : {{form.gender}}
+                Department : {{form.department}}
+                
+        <!-- </div>
+        <div class="col-md-6"> -->
+            <button type="submit" class="save btn btn-default">Save</button>
+        </div>
+        
+    </div>
+</form>
+</div>
+<!-- <a href="{% url '/' % }">Back To Login Page</a> -->
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
