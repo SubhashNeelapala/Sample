@@ -14,6 +14,8 @@ from accounts.models import User,Department,Gender
 from .forms import *
 from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required, user_passes_test
+import csv
+from collections import OrderedDict
 # from django.contrib.auth import login, logout, get_backends, authenticate
 
 def user_login(request, template_name="accounts/login.html"):
@@ -63,17 +65,12 @@ def home(request,id=None,userdata=None,template_name='accounts/home.html'):
 				messages.success(request, 'User created successfully.')
             else:
 				messages.success(request, 'User details updated.')
-			# return HttpResponseRedirect(reverse('idproof_list'))
             return HttpResponseRedirect(reverse('response'))
         else:
             print form.errors,"hai"
     else:
         print "fdgsdfg"
         form=UserRegistrationForm(instance=userdata)
-        # variables={
-        #     'form':form,
-        #     'userdata':userdata
-        # }
     return render(request,template_name,{'form':form})
 
 # @login_required
@@ -83,3 +80,18 @@ def responce_data(request,template_name='accounts/data.html'):
         return render(request,template_name,{'user_data':user_data})
     else:
         return HttpResponseRedirect(reverse('user_login'))
+
+def report_download(request):
+    response=HttpResponse(content_type='text/csv')
+    file_name="Report_csv.csv"
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(file_name)
+    fieldnames = ['username', 'first_name', 'last_name', 'age', 'gender__name','email', 'mobile_number', 'department__name']
+    writer = csv.writer(response)
+    writer.writerow(fieldnames)
+    user_data=User.objects.all().values('first_name','last_name','mobile_number','age','username','department__name','email','gender__name')
+    for each in user_data:
+        value=each.values()
+        # value=OrderedDict(value)
+        writer.writerow(list(value))
+    return response
+
